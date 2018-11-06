@@ -1,5 +1,6 @@
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Random;
 
 public class Graph {
 
@@ -28,17 +29,23 @@ public class Graph {
     }
 
     // Prints all edges in the graph.
-    void printEdges(Kattio io, int color) {
+    void printAsMovie(Kattio io, int color) {
 
       io.println(numNodes);
       io.println(numEdges);
       io.println(color);
 
+      Random rand = new Random();
+
+      for(int i = 0; i < numNodes; i++) {
+          io.println("1 " + (rand.nextInt(numNodes) + 1));
+      }
+
       for (int i = 1; i < numNodes; i++) {
         Iterator<Integer> it = edges[i].iterator();
 
         while(it.hasNext()) {
-            io.println(i + " " + it.next());
+            io.println("2 " + i + " " + it.next());
         }
       }
       io.flush();
