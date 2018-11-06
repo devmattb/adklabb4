@@ -10,7 +10,7 @@ public class Graph {
 
     public Graph(int v) {
 
-      this.numNodes = v;
+      this.numNodes = v + 1;
       this.numEdges = 0;
       // Init edges
       edges = new HashSet[numNodes];
