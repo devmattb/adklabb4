@@ -16,28 +16,49 @@ public class ReduceRoleproblem {
   int n; // number of roles
   int s; // number of scenes
   int k; // number of actors
-  Kattio io = new Kattio();
+  Graph graph;
+  Kattio io;
 
   public ReduceRoleproblem(){
 
+        io = new Kattio(System.in, System.out);
+
+        n = io.getInt();
+        s = io.getInt();
+        k = io.getInt();
+
+        graph = new Graph(n);
+
+        // Nodes.
+        for (int i = 0; i < n; i++) {
+          // skip these
+          int count = io.getInt();
+          for (int j = 0; j < count; j++) {io.getInt();}
+        }
+
+        // Edges
+        for (int i = 0; i < s; i++) {
+           int count = io.getInt();
+           int[] arr = new int[count];
+
+           // Store all the roles in this scene.
+           for (int j = 0; j < count; j++) {
+             arr[j] = io.getInt();
+           }
+
+           // Create edges between all of the roles in the same scene.
+           for (int j = 0; j < count; j++) {
+             for (int k = j+1; k < count; k++) {
+               graph.addEdge(arr[j], arr[k]);
+             }
+           }
+        }
+
+        graph.printEdges(io, k);
   }
 
   public static void main(String[] args) {
-
-    io = new Kattio(System.in, System.out);
-
-
-    n = io.getInt();
-    s = io.getInt();
-    k = io.getInt();
-
-    for (int i = 0; i < n; i++) {
-       io.getInt()
-    }
-
-    for (int i = 0; i < s; i++) {
-       io.getInt()
-    }
+    new ReduceRoleproblem();
   }
 
 }
