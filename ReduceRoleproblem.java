@@ -25,6 +25,7 @@ public class ReduceRoleproblem {
       io.println(0);
       io.println(numColors);
       io.flush();
+      io.close();
       System.exit(0);
   }
 
@@ -36,12 +37,18 @@ public class ReduceRoleproblem {
       for (int i = 0; i < numRoles; i++) {
         // skip these
         int count = io.getInt();
-        for (int j = 0; j < count; j++) {io.getInt();}
+        System.err.print(count + " ");
+
+        for (int j = 0; j < count; j++) {
+            System.err.print(io.getInt() + " ");
+        }
+        System.err.println();
       }
 
       // Edges
       for (int i = 0; i < numScenes; i++) {
          int count = io.getInt();
+         System.err.print(count + " ");
 
          //System.err.println("count " + count);
          int[] arr = new int[count];
@@ -49,7 +56,11 @@ public class ReduceRoleproblem {
          // Store all the roles in this scene.
          for (int j = 0; j < count; j++) {
            arr[j] = io.getInt();
+           System.err.print(arr[j] + " ");
+
          }
+         System.err.println();
+
          if(count > numRoles) {
              count = numRoles;
          }
@@ -78,6 +89,7 @@ public class ReduceRoleproblem {
             io.println(0);
             io.println(numColors);
             io.flush();
+            io.close();
             System.exit(0);
         }
 
@@ -89,6 +101,7 @@ public class ReduceRoleproblem {
 
 
         graph.printEdges(io, numColors);
+        io.close();
         System.exit(0);
 
   }
