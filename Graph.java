@@ -3,17 +3,18 @@ import java.util.Iterator;
 
 public class Graph {
 
-    int v; // num nodes
-    int e; // num edges
+    int numNodes;
+    int numEdges;
 
     HashSet<Integer>[] edges;
 
     public Graph(int v) {
-      this.v = v + 1;
-      this.e = 0;
+
+      this.numNodes = v;
+      this.numEdges = 0;
       // Init edges
-      edges = new HashSet[v];
-      for (int i = 1; i < v; i++) {
+      edges = new HashSet[numNodes];
+      for (int i = 1; i < numNodes; i++) {
         edges[i] = new HashSet<Integer>();
       }
     }
@@ -22,18 +23,18 @@ public class Graph {
     void addEdge(int from, int to) {
       if (!edges[from].contains(to)){
         edges[from].add(to);
-        e++;
+        numEdges++;
       }
     }
 
     // Prints all edges in the graph.
     void printEdges(Kattio io, int color) {
 
-      io.println(v);
-      io.println(e);
+      io.println(numNodes);
+      io.println(numEdges);
       io.println(color);
 
-      for (int i = 1; i < v; i++) {
+      for (int i = 1; i < numNodes; i++) {
         Iterator<Integer> it = edges[i].iterator();
 
         while(it.hasNext()) {
