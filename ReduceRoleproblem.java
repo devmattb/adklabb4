@@ -16,6 +16,7 @@ public class ReduceRoleproblem {
   int n; // number of roles
   int s; // number of scenes
   int k; // number of actors
+  Kattio io = new Kattio();
 
   public ReduceRoleproblem(){
 
@@ -23,12 +24,19 @@ public class ReduceRoleproblem {
 
   public static void main(String[] args) {
 
-    n = args[0];
-    s = args[1];
-    k = args[2];
+    io = new Kattio(System.in, System.out);
 
-    for (int i = 2; i < args.length; i++) {
-            System.out.println(args[i]);
+
+    n = io.getInt();
+    s = io.getInt();
+    k = io.getInt();
+
+    for (int i = 0; i < n; i++) {
+       io.getInt()
+    }
+
+    for (int i = 0; i < s; i++) {
+       io.getInt()
     }
   }
 
