@@ -39,6 +39,7 @@ public class ReduceRoleproblem {
         // Edges
         for (int i = 0; i < s; i++) {
            int count = io.getInt();
+           System.err.println("count " + count);
            int[] arr = new int[count];
 
            // Store all the roles in this scene.
@@ -52,6 +53,7 @@ public class ReduceRoleproblem {
                graph.addEdge(arr[j], arr[k]);
              }
            }
+
         }
 
         graph.printEdges(io, k);

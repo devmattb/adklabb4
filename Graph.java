@@ -9,11 +9,11 @@ public class Graph {
     HashSet<Integer>[] edges;
 
     public Graph(int v) {
-      this.v = v;
+      this.v = v + 1;
       this.e = 0;
       // Init edges
       edges = new HashSet[v];
-      for (int i = 0; i < v; i++) {
+      for (int i = 1; i < v; i++) {
         edges[i] = new HashSet<Integer>();
       }
     }
@@ -33,7 +33,7 @@ public class Graph {
       io.println(e);
       io.println(color);
 
-      for (int i = 0; i < v; i++) {
+      for (int i = 1; i < v; i++) {
         Iterator<Integer> it = edges[i].iterator();
 
         while(it.hasNext()) {
