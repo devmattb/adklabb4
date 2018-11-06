@@ -30,7 +30,7 @@ public class Graph {
     // Prints all edges in the graph.
     void printEdges(Kattio io, int color) {
 
-      io.println(numNodes);
+      io.println(numNodes - 1);
       io.println(numEdges);
       io.println(color);
 

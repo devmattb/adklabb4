@@ -53,6 +53,7 @@ public class ReduceRoleproblem {
          // Create edges between all of the roles in the same scene.
          for (int j = 0; j < count; j++) {
            for (int k = j+1; k < count; k++) {
+
              graph.addEdge(arr[j], arr[k]);
            }
          }
@@ -77,7 +78,7 @@ public class ReduceRoleproblem {
 
         graph.printEdges(io, numColors);
         System.exit(0);
-        
+
   }
 
   public static void main(String[] args) {
