@@ -10,10 +10,10 @@ public class Graph {
 
     public Graph(int v) {
 
-      this.numNodes = v + 1;
+      this.numNodes = v;
       this.numEdges = 0;
       // Init edges
-      edges = new HashSet[numNodes];
+      edges = new HashSet[numNodes + 1];
       for (int i = 1; i < numNodes; i++) {
         edges[i] = new HashSet<Integer>();
       }
@@ -30,7 +30,7 @@ public class Graph {
     // Prints all edges in the graph.
     void printEdges(Kattio io, int color) {
 
-      io.println(numNodes - 1);
+      io.println(numNodes);
       io.println(numEdges);
       io.println(color);
 

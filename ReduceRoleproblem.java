@@ -42,12 +42,16 @@ public class ReduceRoleproblem {
       // Edges
       for (int i = 0; i < numScenes; i++) {
          int count = io.getInt();
+
          //System.err.println("count " + count);
          int[] arr = new int[count];
 
          // Store all the roles in this scene.
          for (int j = 0; j < count; j++) {
            arr[j] = io.getInt();
+         }
+         if(count > numRoles) {
+             count = numRoles;
          }
 
          // Create edges between all of the roles in the same scene.
@@ -68,6 +72,14 @@ public class ReduceRoleproblem {
         numRoles = io.getInt();
         numScenes = io.getInt();
         numColors = io.getInt();
+
+        if(numRoles < 1 || numScenes < 1 || numColors < 2) {
+            io.println(0);
+            io.println(0);
+            io.println(numColors);
+            io.flush();
+            System.exit(0);
+        }
 
         if(numRoles == 1) {
             printSpecial();
