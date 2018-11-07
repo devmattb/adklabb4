@@ -19,6 +19,11 @@ public class NpReduce {
 
             graph.addEdge(u,v);
         }
+
+        //specialfall 0 kanter
+        if(numEdges == 0) {
+          graph.addEdge(1, 2);
+        }
     }
 
     public NpReduce() {

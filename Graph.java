@@ -1,6 +1,6 @@
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Random;
+import java.util.Stack;
 
 public class Graph {
 
@@ -28,6 +28,30 @@ public class Graph {
       }
     }
 
+    void dfs() {
+
+      boolean[] visited = new boolean[numNodes + 1];
+      int[] path = new int[numNodes + 1];
+
+      Stack<Integer> queue = new Stack<Integer>();
+      //start with first role and add to scene
+      queue.push(1);
+
+      while(queue.size() != 0) {
+        int u = queue.pop();
+
+        if(!visited[u]) {
+          visited[u] = true;
+          Iterator<Integer> it = edges[u].iterator();
+          while(it.hasNext()) {
+            int v = it.next();
+            queue.push(v);
+            path[v] = u;
+          }
+        }
+      }
+    }
+
     // Prints all edges in the graph.
     void printAsMovie(Kattio io, int color) {
 
@@ -35,12 +59,12 @@ public class Graph {
       io.println(numEdges);
       io.println(color);
 
-      Random rand = new Random();
-
+      //printa roller
       for(int i = 0; i < numNodes; i++) {
-          io.println("1 " + (rand.nextInt(numNodes) + 1));
+          io.println("2 1 2");
       }
 
+      //printa scener
       for (int i = 1; i < numNodes; i++) {
         Iterator<Integer> it = edges[i].iterator();
 
