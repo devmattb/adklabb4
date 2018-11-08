@@ -3,20 +3,22 @@ import java.util.Iterator;
 import java.util.Stack;
 import java.util.LinkedList;
 
+import java.lang.StringBuilder;
+
 public class Graph {
 
     int numNodes;
-    int numEdges;
+    int numScenes;
 
     HashSet<Integer>[] edges;
 
     public Graph(int v) {
 
       this.numNodes = v;
-      this.numEdges = 0;
+      this.numScenes = 0;
       // Init edges
       edges = new HashSet[numNodes + 1];
-      for (int i = 1; i < numNodes; i++) {
+      for (int i = 1; i <= numNodes; i++) {
         edges[i] = new HashSet<Integer>();
       }
     }
@@ -25,38 +27,45 @@ public class Graph {
     void addEdge(int from, int to) {
       if (!edges[from].contains(to)){
         edges[from].add(to);
-        numEdges++;
+        //edges[to].add(from);
       }
     }
 
-    void dfs(int start) {
+    int dfs(int start, int[] path) {
 
       boolean[] visited = new boolean[numNodes + 1];
-      int[] path = new int[numNodes + 1];
 
       Stack<Integer> queue = new Stack<Integer>();
       //start with first role and add to scene
       queue.push(start);
+      int last = start;
 
       while(queue.size() != 0) {
         int u = queue.pop();
 
         if(!visited[u]) {
           visited[u] = true;
-          Iterator<Integer> it = edges[u].iterator();
-          while(it.hasNext()) {
-            int v = it.next();
-            queue.push(v);
-            path[v] = u;
+          if(!edges[u].isEmpty()) {
+              Iterator<Integer> it = edges[u].iterator();
+              while(it.hasNext()) {
+                int v = it.next();
+
+                if(!visited[v]) {
+                    queue.push(v);
+                    path[v] = u;
+                    last = v;
+                }
+
+              }
           }
         }
       }
+      return last;
     }
 
-    void bfs(int start) {
+    int[] bfs(int start, int[] path) {
 
         boolean[] visited = new boolean[numNodes + 1];
-        int[] path = new int[numNodes + 1];
 
         LinkedList<Integer> queue = new LinkedList<Integer>();
 
@@ -71,34 +80,81 @@ public class Graph {
                 if(!visited[v]) {
                     queue.add(v);
                     visited[v] = true;
-                    path[u] = v;
+                    path[v] = u;
                 }
             }
 
         }
+        return path;
+    }
+
+    String printPath(int start, int[] path) {
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+        sb.append(start);
+        for(int v = start; v != 0; v = path[v]) {
+            if(path[v] != 0) {
+                sb.append(" " + path[v]);
+                count++;
+            }
+        }
+        sb.insert(0, count + " ");
+        if(count > 1) {
+            System.err.println("Count " + count);
+            numScenes++;
+            sb.append("\n");
+            return sb.toString();
+        }
+        return "";
     }
 
     // Prints all edges in the graph.
     void printAsMovie(Kattio io, int color) {
 
       io.println(numNodes);
-      io.println(numEdges); //TODO: antal scener
-      io.println(color);
-
+      StringBuilder sb = new StringBuilder();
+      sb.append(color + "\n");
       //printa roller
       for(int i = 0; i < numNodes; i++) {
-          io.println("2 1 2");
+          sb.append("2 1 2\n");
       }
 
       //printa scener
-      for (int i = 1; i < numNodes; i++) {
-        Iterator<Integer> it = edges[i].iterator();
-
-        while(it.hasNext()) {
-            io.println("2 " + i + " " + it.next());
-        }
+      for (int i = 1; i <= numNodes; i++) {
+          int[] path = new int[numNodes + 1];
+          int last = dfs(i, path);
+          sb.append(printPath(last, path));
       }
+      sb.insert(0, numScenes + "\n");
+      io.println(sb.toString());
       io.flush();
+    }
+
+    void printEasy(Kattio io, int color, int numEdges) {
+
+        io.println(numNodes);
+        io.println(numEdges);
+        io.println((color + 1));
+
+        for(int i = 0; i < numNodes; i++) {
+            StringBuilder sb = new StringBuilder();
+            int count = numNodes - i;
+            sb.append(count);
+
+            for(int j = i +1; j <= numNodes; j++) {
+                sb.append(" " + j);
+            }
+            io.println(sb.toString());
+        }
+
+        for(int i = 1; i <= numNodes; i++) {
+            Iterator<Integer> it = edges[i].iterator();
+            while(it.hasNext()) {
+                int v = it.next();
+                io.println("2 " + i + " " + v);
+            }
+        }
+        io.flush();
     }
 
 }

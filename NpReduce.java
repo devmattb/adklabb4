@@ -26,6 +26,22 @@ public class NpReduce {
         }
     }
 
+    void printMinimalYes() {
+        io.println("3");
+        io.println("2");
+        io.println("3");
+        io.println("1 1");
+        io.println("1 2");
+        io.println("1 3");
+        io.println("2 1 3");
+        io.println("2 2 3");
+
+        io.flush();
+        io.close();
+        System.exit(0);
+
+    }
+
     public NpReduce() {
         io = new Kattio(System.in, System.out);
 
@@ -33,9 +49,13 @@ public class NpReduce {
         numEdges = io.getInt();
         numColors = io.getInt();
 
+        if(numEdges == 0) {
+            printMinimalYes();
+        }
+
         initGraph();
 
-        graph.printAsMovie(io, numColors);
+        graph.printEasy(io, numColors, numEdges);
 
         io.close();
 
