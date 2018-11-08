@@ -42,6 +42,10 @@ public class NpReduce {
 
     }
 
+    void printAlwaysYes() {
+        io.println("3");
+    }
+
     public NpReduce() {
         io = new Kattio(System.in, System.out);
 
@@ -52,8 +56,24 @@ public class NpReduce {
         if(numEdges == 0) {
             printMinimalYes();
         }
-
         initGraph();
+
+        int chromatic = graph.findChromaticNumber();
+
+        System.err.println("Chrmoatic "+ chromatic);
+
+        if(numColors > chromatic || numColors > numNodes) {
+            graph.printAlwaysYes(io, numEdges, numColors);
+            io.close();
+            System.exit(0);
+        } else if(numColors < chromatic) {
+            System.err.println("print no");
+
+            graph.printAlwaysNo(io, numEdges, numColors);
+            io.close();
+            System.exit(0);
+        }
+
 
         graph.printEasy(io, numColors, numEdges);
 
