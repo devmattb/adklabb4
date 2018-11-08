@@ -1,6 +1,7 @@
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
+import java.util.LinkedList;
 
 public class Graph {
 
@@ -28,14 +29,14 @@ public class Graph {
       }
     }
 
-    void dfs() {
+    void dfs(int start) {
 
       boolean[] visited = new boolean[numNodes + 1];
       int[] path = new int[numNodes + 1];
 
       Stack<Integer> queue = new Stack<Integer>();
       //start with first role and add to scene
-      queue.push(1);
+      queue.push(start);
 
       while(queue.size() != 0) {
         int u = queue.pop();
@@ -52,11 +53,36 @@ public class Graph {
       }
     }
 
+    void bfs(int start) {
+
+        boolean[] visited = new boolean[numNodes + 1];
+        int[] path = new int[numNodes + 1];
+
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+
+        queue.add(start);
+        visited[start] = true;
+
+        while(queue.size() != 0) {
+            int u = queue.pop();
+            Iterator<Integer> it = edges[u].iterator();
+            while(it.hasNext()) {
+                int v = it.next();
+                if(!visited[v]) {
+                    queue.add(v);
+                    visited[v] = true;
+                    path[u] = v;
+                }
+            }
+
+        }
+    }
+
     // Prints all edges in the graph.
     void printAsMovie(Kattio io, int color) {
 
       io.println(numNodes);
-      io.println(numEdges);
+      io.println(numEdges); //TODO: antal scener
       io.println(color);
 
       //printa roller
