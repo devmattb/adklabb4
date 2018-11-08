@@ -2,29 +2,9 @@ public class NpReduce {
 
     Kattio io;
 
-    Graph graph;
-
     int numNodes;
     int numEdges;
     int numColors;
-
-    void initGraph() {
-
-        graph = new Graph(numNodes);
-
-        //read all edges
-        while(io.hasMoreTokens()) {
-            int u = io.getInt();
-            int v = io.getInt();
-
-            graph.addEdge(u,v);
-        }
-
-        //specialfall 0 kanter
-        if(numEdges == 0) {
-          graph.addEdge(1, 2);
-        }
-    }
 
     void printMinimalYes() {
         io.println("3");
@@ -42,10 +22,50 @@ public class NpReduce {
 
     }
 
-    void printAlwaysYes() {
-        io.println("3");
-    }
+    void print() {
+        int roles = numNodes + 2;
+        int scenes = numEdges + 2*numNodes;
+        int actors = numColors + 2;
 
+        
+        if(numEdges == 0) {
+            printMinimalYes();
+        }
+
+
+        io.println(roles);
+        io.println(scenes);
+        io.println(actors);
+
+        io.println("1 1"); //diva 1
+        io.println("1 2"); //diva 2
+
+        for(int i = 3; i <= roles; i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(actors);
+            //ri = {1,2,...,k,k+1}
+            for (int j = 3;j <= actors; j++ ) {
+                sb.append(" " + j);
+            }
+            io.println(sb.toString());
+        }
+
+        //Anse att vi har en scen med diva 1 resp. 2 med alla andra skådespelare
+        for(int i = 1; i <= 2; i++) {
+            for(int j = 3; j <= roles; j++) {
+                io.println("2 " + i + " " + j);
+            }
+        }
+
+        for(int i = 0; i < numEdges; i++) {
+            int u = io.getInt() + 2;
+            int v = io.getInt() + 2;
+
+            io.println("2 "+ u + " " + v);
+        }
+
+        io.close();
+    }
     public NpReduce() {
         io = new Kattio(System.in, System.out);
 
@@ -53,32 +73,7 @@ public class NpReduce {
         numEdges = io.getInt();
         numColors = io.getInt();
 
-        if(numEdges == 0) {
-            printMinimalYes();
-        }
-        initGraph();
-
-        int chromatic = graph.findChromaticNumber();
-
-        System.err.println("Chrmoatic "+ chromatic);
-
-        if(numColors > chromatic || numColors > numNodes) {
-            graph.printAlwaysYes(io, numEdges, numColors);
-            io.close();
-            System.exit(0);
-        } else if(numColors < chromatic) {
-            System.err.println("print no");
-
-            graph.printAlwaysNo(io, numEdges, numColors);
-            io.close();
-            System.exit(0);
-        }
-
-
-        graph.printEasy(io, numColors, numEdges);
-
-        io.close();
-
+        print();
     }
 
     public static void main(String[] args) {

@@ -47,52 +47,6 @@ public class Graph {
         return chromatic;
     }
 
-    void printAlwaysYes(Kattio io, int numEdges, int color) {
-
-        io.println(numNodes);
-        io.println(numEdges);
-        io.println(color + 1);
-
-        //printa roller
-        for(int i = 1; i <= numNodes; i++) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(numNodes);
-            for(int j = 1; j <= numNodes; j++) {
-                sb.append(" " + j);
-            }
-            io.println(sb.toString());
-        }
-
-        for(int i = 1; i<= numNodes; i++) {
-            Iterator<Integer> it = edges[i].iterator();
-            while(it.hasNext()) {
-                int v = it.next();
-                io.println("2 " + i + " " + v);
-            }
-        }
-        io.flush();
-
-    }
-
-    void printAlwaysNo(Kattio io,int numEdges, int color) {
-
-        io.println(numNodes);
-        io.println(numEdges);
-        io.println(color + 1);
-
-        for(int i = 1; i <= numNodes; i++) {
-            io.println("2 1 2");
-        }
-
-        for(int i = 1; i<= numNodes; i++) {
-            Iterator<Integer> it = edges[i].iterator();
-            while(it.hasNext()) {
-                int v = it.next();
-                io.println("2 " + i + " " + v);
-            }
-        }
-        io.flush();
-    }
 
     void printEasy(Kattio io, int color, int numEdges) {
 
