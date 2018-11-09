@@ -23,11 +23,17 @@ public class NpReduce {
     }
 
     void print() {
+
+        // Add two "diva roles" to the film.
         int roles = numNodes + 2;
-        int scenes = numEdges + 2*numNodes;
+        // Add edges (scenes) between all roles and each diva.
+        // Don't add an edge (scene) between the divas.
+        // This sums up to an additional 2*|V| edges.
+        int scenes = numEdges + 2*(numNodes);
+        // Since we added two "diva roles", we need to add two "diva actors" aswell.
         int actors = numColors + 2;
 
-        
+
         if(numEdges == 0) {
             printMinimalYes();
         }
@@ -69,9 +75,9 @@ public class NpReduce {
     public NpReduce() {
         io = new Kattio(System.in, System.out);
 
-        numNodes = io.getInt();
-        numEdges = io.getInt();
-        numColors = io.getInt();
+        this.numNodes = io.getInt();
+        this.numEdges = io.getInt();
+        this.numColors = io.getInt();
 
         print();
     }
