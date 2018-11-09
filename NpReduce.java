@@ -1,5 +1,3 @@
-import java.util.HashSet;
-
 public class NpReduce {
 
     Kattio io;
@@ -8,7 +6,6 @@ public class NpReduce {
     int numEdges;
     int numColors;
 
-    HashSet<Integer>[] scenesPrinted;
 
     void print() {
 
@@ -22,7 +19,6 @@ public class NpReduce {
         // Since we added two "diva roles", we need to add two "diva actors" aswell.
         int actors = numColors + 2;
 
-        scenesPrinted = new HashSet[roles + 1];
 
         io.println(roles);
         io.println(scenes);
@@ -33,15 +29,20 @@ public class NpReduce {
 
         StringBuilder sb = new StringBuilder();
         sb.append(actors - 2);
-        //ri = {1,2,...,k}
-        for (int j = 3;j <= actors; j++ ) {
-            sb.append(" " + j);
+        if(actors > numEdges && numEdges != 0) {
+          for (int j = 3;j <= 3 + numEdges + 3; j++ ) {
+              sb.append(" " + j);
+          }
+        } else {
+          //ri = {1,2,...,k}
+          for (int j = 3;j <= actors; j++ ) {
+              sb.append(" " + j);
+          }
         }
 
         String currActors = sb.toString();
 
         for(int i = 3; i <= roles; i++) {
-            scenesPrinted[i] = new HashSet<Integer>();
             io.println(currActors);
         }
 
@@ -56,10 +57,9 @@ public class NpReduce {
         for(int i = 0; i < numEdges; i++) {
             u = io.getInt() + 2; //Have to increase index by 2
             v = io.getInt() + 2; //Since we added the 2 divas
-            if(!scenesPrinted[u].contains(v)) {
-              scenesPrinted[u].add(v);
-              io.println("2 "+ u + " " + v);
-            }
+
+            io.println("2 "+ u + " " + v);
+
         }
 
         io.close();
