@@ -6,6 +6,20 @@ public class NpReduce {
     int numEdges;
     int numColors;
 
+    void printMinimalYes() {
+    io.println("3");
+    io.println("2");
+    io.println("3");
+    io.println("1 1");
+    io.println("1 2");
+    io.println("1 3");
+    io.println("2 1 3");
+    io.println("2 2 3");
+     io.flush();
+    io.close();
+    System.exit(0);
+ }
+
 
     void print() {
 
@@ -29,15 +43,10 @@ public class NpReduce {
 
         StringBuilder sb = new StringBuilder();
         sb.append(actors - 2);
-        if(actors > numEdges && numEdges != 0) {
-          for (int j = 3;j <= 3 + numEdges + 3; j++ ) {
-              sb.append(" " + j);
-          }
-        } else {
-          //ri = {1,2,...,k}
-          for (int j = 3;j <= actors; j++ ) {
-              sb.append(" " + j);
-          }
+
+        //ri = {1,2,...,k}
+        for (int j = 3;j <= actors; j++ ) {
+            sb.append(" " + j);
         }
 
         String currActors = sb.toString();
@@ -70,6 +79,10 @@ public class NpReduce {
         this.numNodes = io.getInt();
         this.numEdges = io.getInt();
         this.numColors = io.getInt();
+
+        if(numColors >= numNodes) {
+          printMinimalYes();
+        }
 
         print();
     }
