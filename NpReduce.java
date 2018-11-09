@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 public class NpReduce {
 
     Kattio io;
@@ -6,11 +8,21 @@ public class NpReduce {
     int numEdges;
     int numColors;
 
+    HashSet<Integer>[] scenesPrinted;
+
     void print() {
 
+
+        // Add two "diva roles" to the film.
         int roles = numNodes + 2;
-        int scenes = numEdges + 2*numNodes;
+        // Add edges (scenes) between all roles and each diva.
+        // Don't add an edge (scene) between the divas.
+        // This sums up to an additional 2*|V| edges.
+        int scenes = numEdges + 2*(numNodes);
+        // Since we added two "diva roles", we need to add two "diva actors" aswell.
         int actors = numColors + 2;
+
+        scenesPrinted = new HashSet[roles + 1];
 
         io.println(roles);
         io.println(scenes);
@@ -20,39 +32,44 @@ public class NpReduce {
         io.println("1 2"); //diva 2
 
         StringBuilder sb = new StringBuilder();
-        sb.append(actors);
-        //ri = {1,2,...,k,k+1}
+        sb.append(actors - 2);
+        //ri = {1,2,...,k}
         for (int j = 3;j <= actors; j++ ) {
             sb.append(" " + j);
         }
 
-        for(int i = 3; i <= roles; i++) {
+        String currActors = sb.toString();
 
-            io.println(sb.toString());
+        for(int i = 3; i <= roles; i++) {
+            scenesPrinted[i] = new HashSet<Integer>();
+            io.println(currActors);
         }
 
-        //Anse att vi har en scen med diva 1 resp. 2 med alla andra roller
-        for(int i = 1; i <= 2; i++) {
-            for(int j = 3; j <= roles; j++) {
-                io.println("2 " + i + " " + j);
+      //Anse att vi har en scen med diva 1 resp. 2 med alla andra roller
+        for(int j = 3; j <= roles; j++) {
+            io.println("2 1 " + j);
+            io.println("2 2 " + j);
+        }
+
+        int u,v;
+
+        for(int i = 0; i < numEdges; i++) {
+            u = io.getInt() + 2; //Have to increase index by 2
+            v = io.getInt() + 2; //Since we added the 2 divas
+            if(!scenesPrinted[u].contains(v)) {
+              scenesPrinted[u].add(v);
+              io.println("2 "+ u + " " + v);
             }
         }
 
-        for(int i = 0; i < numEdges; i++) {
-            int u = io.getInt() + 2;
-            int v = io.getInt() + 2;
-
-            io.println("2 "+ u + " " + v);
-        }
-        
         io.close();
     }
     public NpReduce() {
         io = new Kattio(System.in, System.out);
 
-        numNodes = io.getInt();
-        numEdges = io.getInt();
-        numColors = io.getInt();
+        this.numNodes = io.getInt();
+        this.numEdges = io.getInt();
+        this.numColors = io.getInt();
 
         print();
     }
